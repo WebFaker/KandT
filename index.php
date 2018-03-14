@@ -8,10 +8,11 @@ require_once "includes/contentArray.php";
 // gestion de la page appelee (param page=)
 // gestion de l'affichage de la page par defaut si la page appelee n'existe pas (avec le status 404 http)
 define('APP_DEFAULT_PAGE', $page = $content[key($content)]);
-// la page par defaut n'existe pas, horreur, malheur
+// si le PATH_INFO contient une valeur, crée une variable $page avec le contenu de la PATH_INFO sans le "/"
 if(!empty($content[substr($_SERVER["PATH_INFO"],1)])) {
     $page = $content[substr($_SERVER["PATH_INFO"], 1)];
 }
+// si PATH_INFO vide ou inconnu, vas sur la page par défaut
 else{
     $page = APP_DEFAULT_PAGE;
 }
