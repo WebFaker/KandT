@@ -1,5 +1,4 @@
 <?php require_once "functions.php"?>
-<?php require_once "contentArray.php"?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
