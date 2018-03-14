@@ -1,6 +1,6 @@
 <?php
-include "includes/header.php";
 require_once "includes/contentArray.php";
+include "includes/header.php";
 /**
  * @ref http://php.net/manual/fr/function.http-response-code.php
  */
