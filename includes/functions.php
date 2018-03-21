@@ -10,13 +10,13 @@
  * @param string $page page name with .php at the end
  * @param string $linkText text that goes in the link (d'uhhhh)
  */
-function li($page, $linkText)
+function li($linkText, $page, $activePage)
 {
     $active = "";
-    if($page === basename($_SERVER['PHP_SELF'])){
+    if($page === $activePage){
         $active = ' class="active"';
     }
 ?>
-    <li<?=$active?>><a href="<?=$page?>"><?=$linkText?></a></li>
+    <li<?=$active?>><a href="?page=<?=$page?>"><?=$linkText?></a></li>
 <?php
 }
