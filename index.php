@@ -11,27 +11,39 @@ define('APP_DEFAULT_PAGE', 'el-miedo-de-los-teletubbies');
 if (!isset($content[APP_DEFAULT_PAGE])) {
     die('omfg');
 }
-$pageKey = $_GET['page'] ?? APP_DEFAULT_PAGE;
-if (!isset($content[$_GET['page']])) {
-    // recuperation de la page par defaut
-    $page = &$content[APP_DEFAULT_PAGE];
-} else {
-    // recuperation de la page demandee
-    $page = &$content[$pageKey] ?? null;
+
+include "includes/header.php"; ?>
+
+<?php
+
+if(isset($_GET["id"])){
+    $id = $_GET["id"];
 }
-if(null === $page){
-    // renvoi du code http 404 si page demande inexistante
-    http_response_code(404);
-}
-include "includes/header.php";
+
+$stmt = $conn->prepare(
+    "SELECT 
+                    id, 
+                    title, 
+                    h1, 
+                    p, 
+                    spanclass, 
+                    spantext, 
+                    imgalt, 
+                    imgsrc, 
+                    navtitle, 
+                    slug 
+                    FROM KandT
+                    WHERE id=$id");
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
     <div class="container theme-showcase" role="main">
         <div class="jumbotron">
-            <h1><?=$page['h1']?></h1>
-            <p><?=$page['p']?></p>
-            <span class="label <?=$page['span-class']?>"><?=$page['span-text']?></span>
+            <h1><?=$row['h1']?></h1>
+            <p><?=$row['p']?></p>
+            <span class="label <?=$row['spanclass']?>"><?=$row['spantext']?></span>
         </div>
-        <img class="img-thumbnail" alt="<?=$page['img-alt']?>" src="img/<?=$page['img-src']?>" data-holder-rendered="true">
+        <img class="img-thumbnail" alt="<?=$row['imgalt']?>" src="img/<?=$row['imgsrc']?>" data-holder-rendered="true">
     </div>
 <?php
 include "includes/footer.php";
